@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+title: "Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes"
+message: "If you use this software or repository, please cite it using the metadata below."
+type: software
+
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+    affiliation: "Usha Martin University, Ranchi, Jharkhand, India"
+    email: "akakhtar.2024@gmail.com"
+
+repository-code: "https://github.com/Arithmetic-Power-Geometry/APG-Single-Cell-PBMC"
+
+abstract: >
+  Reproducible implementation of Arithmetic Power Geometry (APG)
+  descriptors for interpretable structural analysis of single-cell
+  PBMC transcriptomes using the official 10x Genomics Fresh 68k PBMC
+  dataset.
+
+keywords:
+  - Arithmetic Power Geometry
+  - APG
+  - single-cell RNA sequencing
+  - scRNA-seq
+  - PBMC
+  - transcriptomics
+  - entropy
+  - bioinformatics
+
+license: "Apache-2.0"
+
+doi: "10.5281/zenodo.21306503"
+
+version: "1.0.0"
+
+date-released: "2026-07-11"
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Akhtar"
+      given-names: "Mohammad Amir Khusru"
+      affiliation: "Usha Martin University, Ranchi, Jharkhand, India"
+  title: "Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes"
+  doi: "10.5281/zenodo.21306503"
+  year: 2026
