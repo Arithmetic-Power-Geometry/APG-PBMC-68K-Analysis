@@ -50,9 +50,9 @@ The objectives of this study are to
 
 For each cell, normalized quadratic weights are computed as
 
-\[
+$$
 w_i=\frac{x_i^2}{\sum_j x_j^2}
-\]
+$$
 
 from which APG descriptors are derived, including
 
