@@ -1,0 +1,8 @@
+{
+  "dataset": "Fresh 68k PBMCs (Donor A)",
+  "cells": 68579,
+  "genes": 32738,
+  "analysis_date": "2026-07-11",
+  "confident_annotations": 56903,
+  "uncertain_annotations": 11676
+}

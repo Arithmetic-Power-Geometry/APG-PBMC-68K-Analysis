@@ -1,0 +1,6 @@
+model,n_cells,silhouette_score
+M5_Classical_plus_Gene_and_Program_APG,1500,-0.09595209891276589
+M3_Classical_plus_APG,1500,-0.14257930410721328
+M1_Shannon_only,1500,-0.15221294184021814
+M2_Classical_diversity,1500,-0.15794901522210394
+M4_Program_APG,1500,-0.21401189367486298

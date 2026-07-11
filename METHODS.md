@@ -1,0 +1,2 @@
+# Methods
+Filtered UMI counts were normalized to 10,000 counts per cell and transformed by log(1+x). Classical descriptors used ordinary normalized log-expression weights. APG used squared normalized log-expression weights and evaluated D(p)=1-sum(w_i^(p/2)) for p=2.25, 2.5, 3, 4, 5 and 6. Marker-module annotations were filtered by score and margin thresholds. Classification used identical three-fold stratified splits with class-weighted logistic regression. Robustness used binomial thinning of raw counts.
