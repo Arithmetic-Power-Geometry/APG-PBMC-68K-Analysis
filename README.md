@@ -1,166 +1,178 @@
-# Arithmetic Power Geometry (APG) Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes
+# Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21306503.svg)](https://doi.org/10.5281/zenodo.21306503)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Overview
 
-This repository presents the complete reproducible research package accompanying the study:
+This repository contains the complete reproducible research package accompanying the paper:
 
-**Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes**
+> **Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes**
 
-The project introduces **Arithmetic Power Geometry (APG)** as an interpretable mathematical framework for describing the structural organization of single-cell RNA sequencing (scRNA-seq) transcriptomes.
+The study introduces **Arithmetic Power Geometry (APG)** as an interpretable mathematical framework for compact structural characterization of single-cell RNA sequencing (scRNA-seq) transcriptomes. APG complements conventional diversity and concentration measures by representing each transcriptome using deterministic structural descriptors derived from normalized quadratic weights.
 
-Unlike conventional diversity measures that summarize transcriptomic distributions using entropy alone, APG constructs deterministic structural descriptors based on normalized quadratic weights, allowing complementary characterization of diversity, concentration, effective dimensionality, and program-level organization.
+The repository includes:
 
-The repository contains fully reproducible code, processed data, statistical analyses, figures, tables, and manuscript materials.
+- Complete analysis pipeline
+- Source code
+- Statistical analysis
+- Figures
+- Tables
+- Supplementary material
+- Reproducible manuscript
+
+---
+
+## Paper
+
+**Author**
+
+**Dr. Mohammad Amir Khusru Akhtar**
+
+Usha Martin University  
+Ranchi – 834001, Jharkhand, India
+
+📧 akakhtar.2024@gmail.com
+
+**DOI**
+
+https://doi.org/10.5281/zenodo.21306503
+
+---
+
+## Abstract
+
+Single-cell RNA sequencing produces high-dimensional molecular profiles, whereas compact cell-level summaries often reduce each transcriptome to one diversity or concentration statistic.
+
+Arithmetic Power Geometry (APG) introduces a deterministic structural representation based on normalized quadratic weights. From these weights APG derives entropy, concentration, effective dimension, bounded exponent-deformation profiles, and integrated deformation, providing complementary structural information beyond classical diversity measures.
+
+The framework is evaluated on the official **10x Genomics Fresh 68k PBMC (Donor A)** dataset containing **68,579 cells**, where APG is compared directly with Shannon entropy, Rényi entropy, Simpson diversity, Gini inequality, Herfindahl concentration, participation ratio, and detected-gene count.
+
+Results demonstrate that APG descriptors substantially improve compact transcriptomic representation while remaining fully interpretable and computationally efficient.
+
+---
+
+# Key Contributions
+
+- Introduces Arithmetic Power Geometry (APG) for single-cell transcriptomics.
+- Defines deterministic structural descriptors using normalized quadratic weights.
+- Compares APG directly with established diversity and concentration measures.
+- Evaluates both gene-level and biological programme-level APG.
+- Benchmarks APG using the official 68k PBMC dataset.
+- Provides complete reproducible code and analysis.
+- Releases all figures, tables and supplementary material.
+
+---
+
+# Mathematical Framework
+
+For each cell, APG computes normalized quadratic weights
+
+```
+             xᵢ²
+wᵢ = ------------------
+      Σⱼ (xⱼ²)
+```
+
+where
+
+- xᵢ denotes normalized gene expression
+- wᵢ denotes the APG structural weight
+
+From these weights APG computes
+
+- Structural entropy
+- Normalized entropy
+- Maximum concentration
+- Quadratic concentration
+- Effective dimension
+- Exponent deformation D(p)
+- Integrated deformation A(2,6)
 
 ---
 
 # Dataset
 
-The study uses the official public dataset
+Official public dataset
 
 **10x Genomics Fresh 68k PBMCs (Donor A)**
 
-containing
+Dataset summary
 
-- **68,579 cells**
-- Human peripheral blood mononuclear cells (PBMCs)
-- UMI-based scRNA-seq
+| Item | Value |
+|------|------:|
+| Cells | 68,579 |
+| Genes | 32,738 |
+| Median genes/cell | 525 |
+| Median UMI counts | 1,292 |
+| Mean reads/cell | 20,491 |
+| Reference genome | hg19 |
+| Cell Ranger | 1.1.0 |
 
-The dataset is used exclusively for research and methodological evaluation.
+The original dataset is publicly available from
 
----
-
-# Objectives
-
-The objectives of this study are to
-
-- introduce APG descriptors for single-cell transcriptomic analysis;
-- evaluate APG against established diversity measures;
-- investigate structural differences among immune cell populations;
-- study transcriptomic concentration and effective dimensionality;
-- evaluate machine-learning performance using APG-derived descriptors;
-- assess robustness under sequencing-depth downsampling;
-- provide a completely reproducible benchmark for future APG research.
-
----
-
-# Arithmetic Power Geometry (APG)
-
-For each cell, normalized quadratic weights are computed as
-
-$$
-w_i=\frac{x_i^2}{\sum_j x_j^2}
-$$
-
-from which APG descriptors are derived, including
-
-- Shannon structural entropy
-- concentration
-- effective dimension
-- diversity
-- gene-program descriptors
-- structural balance measures
-
-These descriptors provide an interpretable representation of transcriptomic organization while remaining computationally straightforward.
+https://www.10xgenomics.com/datasets/fresh-68-k-pbm-cs-donor-a-1-standard-1-1-0
 
 ---
 
 # Main Results
 
-The principal classification results are
+## Classification Performance
 
 | Representation | Macro-F1 |
 |---------------|---------:|
-| Classical diversity descriptors | **0.3027** |
-| Classical + Gene-level APG | **0.3792** |
-| Classical + Gene + Program APG (M5) | **0.5299** |
+| Shannon only | 0.1710 |
+| Classical descriptors | 0.3027 |
+| Classical + Gene APG | 0.3792 |
+| Programme APG | 0.3887 |
+| Classical + Gene + Programme APG | **0.5299** |
 
-The APG representation substantially improves discrimination among immune cell populations compared with conventional diversity descriptors alone.
+---
+
+## Major Findings
+
+- APG improves transcriptomic discrimination beyond classical diversity descriptors.
+- Programme-level APG produced the strongest between-cell-type effects.
+- APG descriptors remained robust under sequencing-depth reduction.
+- APG provides interpretable structural summaries complementary to existing single-cell workflows.
 
 ---
 
 # Repository Structure
 
 ```
-APG-Single-Cell-PBMC/
+APG-Single-Cell-PBMC
 │
 ├── code/
-│   ├── run_complete_analysis.py
-│   ├── preprocessing/
-│   ├── apg/
-│   └── utilities/
 │
 ├── data/
 │
-├── results/
-│   └── cell_level_descriptors_and_annotations.csv.gz
-│
-├── tables/
-│   ├── classification_comparison_3fold.csv
-│   ├── cell_type_global_tests.csv
-│   ├── downsampling_robustness.csv
-│   └── ...
-│
 ├── figures/
 │
-├── manuscript/
-│   └── MANUSCRIPT_DRAFT.md
+├── tables/
 │
-├── LICENSE
+├── results/
+│
+├── manuscript/
+│
+├── supplementary/
+│
 ├── README.md
+├── LICENSE
 └── requirements.txt
 ```
 
 ---
 
-# Statistical Analyses
+# Installation
 
-The package includes
+Clone the repository
 
-- descriptive statistics
-- effect-size analysis
-- non-parametric hypothesis testing
-- silhouette analysis
-- cell-type comparisons
-- classification benchmarks
-- robustness under sequencing-depth reduction
-- gene-program structural analysis
+```bash
+git clone https://github.com/Arithmetic-Power-Geometry/APG-Single-Cell-PBMC.git
+```
 
----
-
-# Reproducibility
-
-The repository has been designed for complete reproducibility.
-
-Included are
-
-- preprocessing scripts
-- feature extraction
-- APG descriptor generation
-- statistical analysis
-- manuscript tables
-- publication figures
-
-Running the main pipeline reproduces the analyses reported in the manuscript.
-
----
-
-# Requirements
-
-Typical Python packages include
-
-- Python 3.11+
-- Scanpy
-- AnnData
-- NumPy
-- Pandas
-- SciPy
-- scikit-learn
-- Matplotlib
-
-Install dependencies using
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -170,25 +182,47 @@ pip install -r requirements.txt
 
 # Running the Analysis
 
+Execute
+
 ```bash
 python code/run_complete_analysis.py
 ```
 
-Generated outputs will be written to the corresponding
+Generated outputs will automatically appear in
 
-- results/
-- tables/
 - figures/
+- tables/
+- results/
 
-directories.
+---
+
+# Reproducibility
+
+This repository contains
+
+- Complete source code
+- Derived APG descriptors
+- Statistical analyses
+- Publication-quality figures
+- Tables
+- Supplementary information
+- Fully reproducible workflow
+
+All reported results can be reproduced directly from the provided scripts.
 
 ---
 
 # Citation
 
-If you use this repository in your research, please cite the accompanying manuscript.
+If you use this repository, please cite
 
-BibTeX and DOI information will be added upon publication.
+Akhtar, M. A. K. (2026).
+
+**Arithmetic Power Geometry Descriptors for Interpretable Structural Analysis of Single-Cell PBMC Transcriptomes.**
+
+Zenodo.
+
+https://doi.org/10.5281/zenodo.21306503
 
 ---
 
@@ -196,24 +230,23 @@ BibTeX and DOI information will be added upon publication.
 
 **Dr. Mohammad Amir Khusru Akhtar**
 
-Usha Martin University  
+Usha Martin University
+
 Ranchi, Jharkhand, India
 
-Email: **akakhtar.2024@gmail.com**
+Email
 
----
-
-# Correspondence
-
-Dr. Mohammad Amir Khusru Akhtar
-
-Email: akakhtar.2024@gmail.com
+akakhtar.2024@gmail.com
 
 ---
 
 # License
 
-This project is released under the **Apache License 2.0**.
+Copyright © 2026
+
+**Dr. Mohammad Amir Khusru Akhtar**
+
+Licensed under the **Apache License 2.0**.
 
 See the LICENSE file for details.
 
@@ -221,14 +254,16 @@ See the LICENSE file for details.
 
 # Acknowledgements
 
-The authors acknowledge
+The author gratefully acknowledges
 
-- 10x Genomics for providing the public PBMC dataset.
-- The open-source scientific Python ecosystem.
-- Researchers contributing to reproducible single-cell bioinformatics.
+- 10x Genomics for providing the publicly available PBMC benchmark dataset.
+- The Scanpy and scientific Python communities.
+- Open-source contributors whose software made this research possible.
 
 ---
 
 # Disclaimer
 
-This repository is intended for research and educational purposes. The analyses represent a methodological evaluation of APG on a publicly available single-donor benchmark dataset and should not be interpreted as clinical recommendations.
+This repository is intended solely for research and educational purposes.
+
+The analyses represent a computational methodological benchmark on a publicly available single-donor dataset. APG is proposed as an interpretable structural representation for exploratory single-cell analysis and should not be interpreted as a validated clinical diagnostic or decision-support system.
