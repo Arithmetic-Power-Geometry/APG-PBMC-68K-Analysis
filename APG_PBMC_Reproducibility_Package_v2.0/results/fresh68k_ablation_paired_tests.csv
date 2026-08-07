@@ -1,0 +1,4 @@
+model_a,model_b,n_folds,mean_delta_macro_f1,median_delta_macro_f1,wilcoxon_stat,p
+Programme classical + APG,Programme classical,5,0.12891540908016594,0.1317775536204841,0.0,0.0625
+All classical + all APG,All classical,5,0.10743784539082486,0.10860202014114406,0.0,0.0625
+Gene classical + APG,Gene classical,5,0.06025755376412071,0.05863611980682337,0.0,0.0625
