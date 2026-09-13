@@ -1,0 +1,74 @@
+name: reviewer-matched-control
+
+on:
+  push:
+    paths:
+      - 'APG_PBMC_Reproducibility_Package_v2.0/analysis/06_azimuth_dimension_matched_control.py'
+      - '.github/workflows/reviewer_matched_control.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-matched-control:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy scikit-learn
+      - name: Download compact Azimuth PBMC reference
+        run: |
+          mkdir -p APG_PBMC_Reproducibility_Package_v2.0/source_data
+          curl -L --fail --retry 3 'https://zenodo.org/records/4546839/files/ref.Rds?download=1' \
+            -o APG_PBMC_Reproducibility_Package_v2.0/source_data/Azimuth_Human_PBMC_ref.Rds
+          test -s APG_PBMC_Reproducibility_Package_v2.0/source_data/Azimuth_Human_PBMC_ref.Rds
+      - name: Extract reference arrays
+        run: python APG_PBMC_Reproducibility_Package_v2.0/analysis/01_extract_azimuth_reference.py
+      - name: Prepare classical and APG descriptors
+        run: python APG_PBMC_Reproducibility_Package_v2.0/analysis/02a_prepare_azimuth_descriptors.py
+      - name: Run matched feature-number and transformation-family control
+        run: python APG_PBMC_Reproducibility_Package_v2.0/analysis/06_azimuth_dimension_matched_control.py
+      - name: Validate generated outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+          p=Path('APG_PBMC_Reproducibility_Package_v2.0/results')
+          m=pd.read_csv(p/'azimuth_dimension_matched_metrics.csv')
+          s=pd.read_csv(p/'azimuth_dimension_matched_summary.csv')
+          q=pd.read_csv(p/'azimuth_dimension_matched_paired.csv')
+          assert len(m)==30
+          assert set(s['n_features'])=={30,37,42,49}
+          assert len(q)==2
+          assert m[['balanced_accuracy','macro_f1']].notna().all().all()
+          print(s.to_string(index=False))
+          print(q.to_string(index=False))
+          PY
+      - name: Commit generated reviewer-control results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_metrics.csv \
+                  APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_summary.csv \
+                  APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_paired.csv
+          if git diff --cached --quiet; then
+            echo 'No result changes to commit.'
+          else
+            git commit -m 'Add verified dimension-matched reviewer-control results'
+            git push
+          fi
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewer-matched-control-results
+          path: |
+            APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_metrics.csv
+            APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_summary.csv
+            APG_PBMC_Reproducibility_Package_v2.0/results/azimuth_dimension_matched_paired.csv
