@@ -1,0 +1,66 @@
+name: fresh68k-feature-matched
+
+on:
+  push:
+    paths:
+      - 'APG_PBMC_Reproducibility_Package_v2.0/analysis/07_fresh68k_feature_matched_control.py'
+      - '.github/workflows/fresh68k_feature_matched.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install numpy pandas scipy scikit-learn
+      - name: Prepare existing Fresh68k descriptor artifact
+        run: |
+          mkdir -p APG_PBMC_Reproducibility_Package_v2.0/source_data
+          cp results/cell_level_descriptors_and_annotations.csv.gz \
+             APG_PBMC_Reproducibility_Package_v2.0/source_data/Fresh68k_cell_level_descriptors_and_annotations.csv.gz
+      - name: Run feature-number matched nonlinear control
+        run: python APG_PBMC_Reproducibility_Package_v2.0/analysis/07_fresh68k_feature_matched_control.py
+      - name: Validate outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+          p=Path('APG_PBMC_Reproducibility_Package_v2.0/results')
+          m=pd.read_csv(p/'fresh68k_feature_matched_metrics.csv')
+          s=pd.read_csv(p/'fresh68k_feature_matched_summary.csv')
+          q=pd.read_csv(p/'fresh68k_feature_matched_paired.csv')
+          assert len(m)==45
+          assert len(s)==9
+          assert len(q)==3
+          assert m[['balanced_accuracy','macro_f1']].notna().all().all()
+          print(s.to_string(index=False))
+          print(q.to_string(index=False))
+          PY
+      - name: Commit verified results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_metrics.csv \
+                  APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_summary.csv \
+                  APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_paired.csv
+          if git diff --cached --quiet; then
+            echo 'No changes.'
+          else
+            git commit -m 'Add verified Fresh68k feature-matched control results'
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fresh68k-feature-matched-results
+          path: |
+            APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_metrics.csv
+            APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_summary.csv
+            APG_PBMC_Reproducibility_Package_v2.0/results/fresh68k_feature_matched_paired.csv
