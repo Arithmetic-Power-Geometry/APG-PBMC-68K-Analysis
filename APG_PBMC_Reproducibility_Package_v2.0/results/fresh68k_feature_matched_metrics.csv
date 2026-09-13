@@ -1,0 +1,46 @@
+model,fold,n_features,balanced_accuracy,macro_f1
+Gene classical (7),1,7,0.37421875000000004,0.3326277035868125
+Gene classical (7),2,7,0.38203125,0.32998444843489305
+Gene classical (7),3,7,0.3703125,0.3291415558257128
+Gene classical (7),4,7,0.37187499999999996,0.3277026664571302
+Gene classical (7),5,7,0.36250000000000004,0.31737827412736486
+Gene classical + matched nonlinear control (19),1,19,0.38359374999999996,0.34112260666409844
+Gene classical + matched nonlinear control (19),2,19,0.3859375,0.33696193650975703
+Gene classical + matched nonlinear control (19),3,19,0.36953125,0.33063200004495474
+Gene classical + matched nonlinear control (19),4,19,0.38125,0.33914320645526297
+Gene classical + matched nonlinear control (19),5,19,0.36640625,0.3298435781722655
+Gene classical + APG (19),1,19,0.4140625,0.39126382339363586
+Gene classical + APG (19),2,19,0.41796875,0.3850279205150477
+Gene classical + APG (19),3,19,0.40859375,0.38277397760096077
+Gene classical + APG (19),4,19,0.41484375,0.39244849021522965
+Gene classical + APG (19),5,19,0.41015625,0.38660820552764297
+Programme classical (7),1,7,0.3359375,0.2904815227416488
+Programme classical (7),2,7,0.33515625,0.2837751505844235
+Programme classical (7),3,7,0.3234375,0.2765118763834971
+Programme classical (7),4,7,0.34453124999999996,0.2925635315561929
+Programme classical (7),5,7,0.32578125,0.2756231573336637
+Programme classical + matched nonlinear control (19),1,19,0.3578125,0.3238229356522883
+Programme classical + matched nonlinear control (19),2,19,0.3515625,0.3096572688772779
+Programme classical + matched nonlinear control (19),3,19,0.35,0.31002402075608
+Programme classical + matched nonlinear control (19),4,19,0.35703125,0.316244759403366
+Programme classical + matched nonlinear control (19),5,19,0.34921875,0.3118561518738369
+Programme classical + APG (19),1,19,0.4328125,0.4237897984189608
+Programme classical + APG (19),2,19,0.428125,0.4062568219305778
+Programme classical + APG (19),3,19,0.42265625,0.40048125558727893
+Programme classical + APG (19),4,19,0.44296875,0.424341085176677
+Programme classical + APG (19),5,19,0.425,0.40866332288676116
+All classical (14),1,14,0.4640625,0.4372529218055966
+All classical (14),2,14,0.465625,0.4333921824960484
+All classical (14),3,14,0.43984375,0.4117010669904605
+All classical (14),4,14,0.4515625,0.4232914393002192
+All classical (14),5,14,0.44765625000000003,0.4235515088636092
+All classical + matched nonlinear control (38),1,38,0.46953124999999996,0.4476673273406479
+All classical + matched nonlinear control (38),2,38,0.46875,0.4435962025820494
+All classical + matched nonlinear control (38),3,38,0.46015625,0.4362282231735518
+All classical + matched nonlinear control (38),4,38,0.46718750000000003,0.444062427102644
+All classical + matched nonlinear control (38),5,38,0.4671875,0.451115924367135
+All classical + all APG (38),1,38,0.54296875,0.5347170764362679
+All classical + all APG (38),2,38,0.54921875,0.5340987202417573
+All classical + all APG (38),3,38,0.5445312499999999,0.5281236802019817
+All classical + all APG (38),4,38,0.5453125000000001,0.5318934594413632
+All classical + all APG (38),5,38,0.54296875,0.5375454100886881
