@@ -1,0 +1,3 @@
+model,n_features,fit_predict_seconds_fold1,peak_python_memory_mb,macro_f1_fold1
+All classical (14),14,0.12848866400000247,1.2301483154296875,0.4372529218055966
+All classical + all APG (38),38,0.29015134399999454,3.2235965728759766,0.5347170764362679
