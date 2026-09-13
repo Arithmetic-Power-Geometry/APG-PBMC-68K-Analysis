@@ -25,10 +25,24 @@ jobs:
           pip install numpy pandas scipy scikit-learn
       - name: Download compact Azimuth PBMC reference
         run: |
+          set -e
           mkdir -p APG_PBMC_Reproducibility_Package_v2.0/source_data
-          curl -L --fail --retry 3 'https://zenodo.org/records/4546839/files/ref.Rds?download=1' \
-            -o APG_PBMC_Reproducibility_Package_v2.0/source_data/Azimuth_Human_PBMC_ref.Rds
-          test -s APG_PBMC_Reproducibility_Package_v2.0/source_data/Azimuth_Human_PBMC_ref.Rds
+          OUT='APG_PBMC_Reproducibility_Package_v2.0/source_data/Azimuth_Human_PBMC_ref.Rds'
+          for URL in \
+            'https://zenodo.org/api/records/4546839/files/ref.Rds/content' \
+            'https://zenodo.org/records/4546839/files/ref.Rds' \
+            'https://zenodo.org/record/4546839/files/ref.Rds?download=1'; do
+            echo "Trying $URL"
+            if curl -L --fail --retry 2 --retry-delay 5 --connect-timeout 20 --max-time 180 "$URL" -o "$OUT"; then
+              if [ -s "$OUT" ] && [ $(stat -c%s "$OUT") -gt 50000000 ]; then
+                echo "Downloaded Azimuth reference: $(stat -c%s "$OUT") bytes"
+                break
+              fi
+            fi
+            rm -f "$OUT"
+          done
+          test -s "$OUT"
+          test $(stat -c%s "$OUT") -gt 50000000
       - name: Extract reference arrays
         run: python APG_PBMC_Reproducibility_Package_v2.0/analysis/01_extract_azimuth_reference.py
       - name: Prepare classical and APG descriptors
